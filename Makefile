@@ -52,11 +52,9 @@ define Package/shadowsocks-libev
 		+!SHADOWSOCKS_WITH_MBEDTLS:libmbedtls
 endef
 
-Package/shadowsocks-libev-server = $(Package/shadowsocks-libev)
-
 define Package/shadowsocks-libev/config
 menu "Shadowsocks-libev Compile Configuration"
-	depends on PACKAGE_shadowsocks-libev || PACKAGE_shadowsocks-libev-server
+	depends on PACKAGE_shadowsocks-libev
 	config SHADOWSOCKS_STATIC_LINK
 		bool "enable static link libraries."
 		default n
@@ -85,8 +83,6 @@ menu "Shadowsocks-libev Compile Configuration"
 		endmenu
 endmenu
 endef
-
-Package/shadowsocks-libev-server/config = $(Package/shadowsocks-libev/config)
 
 define Package/shadowsocks-libev/description
 Shadowsocks-libev is a lightweight secured socks5 proxy for embedded devices and low end boxes.
@@ -123,10 +119,4 @@ define Package/shadowsocks-libev/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-{local,redir,tunnel} $(1)/usr/bin
 endef
 
-define Package/shadowsocks-libev-server/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-server $(1)/usr/bin
-endef
-
 $(eval $(call BuildPackage,shadowsocks-libev))
-$(eval $(call BuildPackage,shadowsocks-libev-server))
