@@ -54,7 +54,7 @@ endef
 
 Package/shadowsocks-libev-server = $(Package/shadowsocks-libev)
 
-define Package/shadowsocks-libev-server/config
+define Package/shadowsocks-libev/config
 menu "Shadowsocks-libev Compile Configuration"
 	depends on PACKAGE_shadowsocks-libev || PACKAGE_shadowsocks-libev-server
 	config SHADOWSOCKS_STATIC_LINK
@@ -85,6 +85,8 @@ menu "Shadowsocks-libev Compile Configuration"
 		endmenu
 endmenu
 endef
+
+Package/shadowsocks-libev-server/config = $(Package/shadowsocks-libev/config)
 
 define Package/shadowsocks-libev/description
 Shadowsocks-libev is a lightweight secured socks5 proxy for embedded devices and low end boxes.
